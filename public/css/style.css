@@ -1,118 +1,66 @@
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
+var socket = io();
+var lastIssued = document.getElementById('last-issued');
+var lastCalled = document.getElementById('last-called');
+var newTokenButton = document.getElementById('new-token-btn');
+var deskButtons = document.querySelectorAll('.desk-button');
 
-html { 
-    overflow-y: hidden; 
-}
+var updateSummary = function(state) {
+    if (!state) {
+        return;
+    }
 
-body { 
-    color: #111;
-    background-color: #1f8dd6;
-}   
+    lastIssued.textContent = state.lastGivenToken || 0;
+    lastCalled.textContent = state.lastCalledToken || 0;
 
-.hidden {
-    display: none;
-}
+    if (state.desks) {
+        Object.keys(state.desks).forEach(function(key) {
+            var el = document.getElementById('desk-' + key + '-value');
+            if (el) {
+                el.textContent = state.desks[key];
+            }
+        });
+    }
+};
 
-.half {
-    height: 50vh;
-}
+socket.on('state', function(state) {
+    updateSummary(state);
+});
 
-.info-box--title {
-    margin: auto;
-}
+socket.on('desks', function(state) {
+    updateSummary(state);
+});
 
-.info-box {
-    height: 100vh;
-    text-align: center;
-    border: 1px solid #ddd;
-}
+socket.on('token', function(state) {
+    updateSummary(state);
+});
 
-.l-box.middle {
-    margin: auto;
-}
+newTokenButton.addEventListener('click', function() {
+    fetch('/api/token')
+      .then(function(response) {
+          return response.json();
+      })
+      .then(function(state) {
+          updateSummary(state);
+      })
+      .catch(function(err) {
+          console.error('Error issuing token', err);
+      });
+});
 
-.text-box-head {
-    color: #fff;
-    padding-bottom: 0.2em;
-    font-weight: 400;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-size: 70px;
-}
+deskButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+        var desk = button.getAttribute('data-desk');
+        fetch('/api/advance/' + desk)
+          .then(function(response) {
+              return response.json();
+          })
+          .then(function(state) {
+              updateSummary(state);
+          })
+          .catch(function(err) {
+              console.error('Error advancing desk', err);
+          });
+    });
+});
 
-.text-box-subhead {
-    font-weight: normal;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-}
-
-.info-box-data-container {
-    margin: 10px auto;
-}
-
-.animated {
-    background: #3EFF67;
-    -webkit-animation: pulse 5s ease-out running;
-    -moz-animation:    pulse 5s ease-out running;
-    -o-animation:      pulse 5s ease-out running;
-    animation:         pulse 5s ease-out running;
-}
-
-
-@-webkit-keyframes pulse {
-      100% {
-        background-color: #3EFF67;
-      }
-}
-
-@-moz-keyframes pulse {
-      100% {
-        background-color: #3EFF67;
-      }
-}
-
-@-o-keyframes pulse {
-      100% {
-        background-color: #3EFF67;
-      }
-}
-
-@keyframes pulse {
-      100% {
-        background-color: #3EFF67;
-      }
-}
-
-.text-box-number {
-    margin-top: 20px;
-    font-size: 400px;
-}
-
-.serve-table {
-    color: #111;
-    border: none;
-    margin: 0 auto;
-}
-
-.serve-table th, .serve-table td {
-    font-size: 100px;
-    font-weight: bold;
-    padding: 40px 20px;
-}
-.serve-table th {
-}
-
-.serve-table td {
-    color: white;
-}
-
-.serve-table .serve-table-head {
-    background: none;
-}
-
-
-
+updateSummary({ desks: {}, lastGivenToken: 0, lastCalledToken: 0 });

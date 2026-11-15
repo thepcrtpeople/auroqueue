@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Customer Queue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/favicon.png">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="touchscreen-body">
+    <div class="touchscreen-shell">
+        <header class="touchscreen-header">
+            <div>
+                <p class="eyebrow">Welcome</p>
+                <h1>Customer Queue</h1>
+            </div>
+            <div class="status-strip">
+                <div class="status-box">
+                    <span class="status-label">Current</span>
+                    <strong id="current-token">--</strong>
+                </div>
+                <div class="status-box">
+                    <span class="status-label">Next</span>
+                    <strong id="next-token">--</strong>
+                </div>
+            </div>
+        </header>
+
+        <button id="get-token-btn" class="action-button primary">Take a Number</button>
+
+        <div class="token-box">
+            <span class="token-caption">Your token</span>
+            <div id="token-display">--</div>
+        </div>
+
+        <div class="desk-board" id="desk-board"></div>
+    </div>
+
+    <script src="/js/socket.io-1.3.7.js"></script>
+    <script src="/js/customer.js"></script>
+</body>
+</html>

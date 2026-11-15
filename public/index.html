@@ -1,56 +1,37 @@
 <!doctype html>
 <html>
 <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Auroville Financial Services Queue</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link rel="icon" href="/favicon.png">
-        <link rel="stylesheet" href="/css/pure-min.css">
-        <link rel="stylesheet" href="/css/grid.css">
-        <link rel="stylesheet" href="/css/style.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Auroqueue</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+      body {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+      }
+    </style>
 </head>
-<body>
+<body class="menu-body">
+    <div class="menu-shell">
+        <h1>Auroqueue</h1>
+        <p class="menu-subtitle">Select a screen</p>
 
-    <div class="pure-g">
-
-        <div class="info-box pure-u-1-3">
-            <h1 class="text-box-head">Auroville Financial Services</h1>
-            <div class="l-box">
-                <p class="text-box-subhead hidden">
-                    <a class="twitter-timeline" href="https://twitter.com/AurovilleRadio" data-widget-id="680280030136565760">Tweets by @AurovilleRadio</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-                </p>
-            </div>
-        </div>
-
-        <div class="info-box info-box--status pure-u-1-3">            
-            <div class="info-box-data-container js-table-container">
-                <table class="pure-table serve-table">
-                    <thead class="serve-table-head">
-                        <tr>
-                            <th>Desk</th>
-                            <th>Token</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="info-box info-box--last-given pure-u-1-3">
-            <h1 class="text-box-head">Your Token</h1>
-
-            <div class="info-box-data-container">
-                <span class="text-box-number js-last-given"></span>
-            </div>
-            
+        <div class="menu-grid">
+            <a class="menu-card" href="/customer">
+                <span class="menu-icon">🖥️</span>
+                <span>Customer Touchscreen</span>
+            </a>
+            <a class="menu-card" href="/staff">
+                <span class="menu-icon">🧑‍💼</span>
+                <span>Staff Menu</span>
+            </a>
         </div>
     </div>
-        <script src="/js/socket.io-1.3.7.js"></script>
-        <script src="/js/underscore.js"></script>
-        <script src="/js/main.js"></script>
-    </body>
+</body>
 </html>
