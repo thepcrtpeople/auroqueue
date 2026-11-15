@@ -1,0 +1,13 @@
+{
+  "name": "Auroqueue",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-18-bullseye",
+  "postCreateCommand": "npm install",
+  "postStartCommand": "bash -lc 'npm start > /tmp/auroqueue.log 2>&1 &'",
+  "forwardPorts": [8000],
+  "portsAttributes": {
+    "8000": {
+      "label": "Auroqueue",
+      "onAutoForward": "openBrowser"
+    }
+  }
+}
